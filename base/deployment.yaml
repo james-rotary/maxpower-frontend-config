@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maxpower-frontend
+  namespace: maxpower-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maxpower-frontend
+  template:
+    metadata:
+      labels:
+        app: maxpower-frontend
+    spec:
+      containers:
+        - name: app
+          image: maxpower-frontend:PLACEHOLDER
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4173
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4173
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4173
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 30m
+              memory: 64Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
