@@ -1,0 +1,1 @@
+# maxpower-frontend-config
